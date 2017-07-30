@@ -1,6 +1,6 @@
 # Graphviz filter for Pandoc
 
-This filter adds Graphviz code block support to Pandoc.
+This filter provides Graphviz code block support.
 
 ## Features
 - This filter embeds svg image directly when the output format is html.
