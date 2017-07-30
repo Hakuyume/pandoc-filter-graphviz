@@ -8,7 +8,7 @@ This filter provides Graphviz code block support.
     - For pdf/LaTeX, it saves image as pdf.
     - For other formats, it saves image as png.
 - The layout engine can be specified in block attributes.
-- For wrong inputs, it outputs error message. `pandoc` command does not fail.
+- For wrong inputs, it embeds the error message as a code block. `pandoc` command does not fail.
 
 ## Requirements
 - pandoc
