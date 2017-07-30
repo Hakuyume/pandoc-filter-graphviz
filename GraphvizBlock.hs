@@ -1,9 +1,9 @@
 module GraphvizBlock (graphvizBlock) where
 
-import Data.ByteString.Lazy.UTF8
-import Data.Digest.Pure.SHA
-import System.Exit
-import System.Process
+import Data.ByteString.Lazy.UTF8 (fromString)
+import Data.Digest.Pure.SHA (sha256, showDigest)
+import System.Exit (ExitCode (ExitSuccess))
+import System.Process (readProcessWithExitCode)
 import Text.Pandoc
 
 graphvizBlock :: Maybe Format -> Block -> IO Block
