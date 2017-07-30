@@ -21,5 +21,5 @@ Note: `-dynamic` option is required in some environments.
 
 ## Usage
 ```
-$ pandoc -F ./pandoc-graphviz example.md example.html
+$ pandoc -F ./pandoc-graphviz example.md -o example.html
 ```
