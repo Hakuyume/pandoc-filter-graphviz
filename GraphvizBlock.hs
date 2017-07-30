@@ -1,5 +1,7 @@
 module GraphvizBlock (graphvizBlock) where
 
+import Data.ByteString.Lazy.UTF8
+import Data.Digest.Pure.SHA
 import System.Exit
 import System.Process
 import Text.Pandoc
@@ -15,7 +17,18 @@ graphvizBlock (Just format) (CodeBlock (id, classes, keyvals) content)
                            ExitSuccess -> RawBlock (Format "html")
                                  ("<div id=\"" ++ id ++ "\" class=\"graphviz\">" ++ out ++ "</div>")
                            _ -> CodeBlock (id, classes, keyvals) err
-          _ -> return $ CodeBlock (id, classes, keyvals) content
+          _ ->
+              do
+                (ec, out, err) <- readProcessWithExitCode
+                                  "dot" ["-T" ++ ext, "-K" ++ layout, "-o" ++ filename] content
+                return $ case ec of
+                           ExitSuccess -> Para [Image (id, [], []) [Str content] (filename, id)]
+                           _ -> CodeBlock (id, classes, keyvals) err
+              where
+                ext = case format of
+                        Format "latex" -> "pdf"
+                        _ -> "png"
+                filename = ((showDigest . sha256 . fromString) (layout ++ "/" ++ content)) ++ "." ++ ext
     where
       layout =
           case lookup "layout" keyvals of
