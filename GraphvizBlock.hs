@@ -28,7 +28,8 @@ graphvizBlock (Just format) (CodeBlock (id, classes, keyvals) content)
                 ext = case format of
                         Format "latex" -> "pdf"
                         _ -> "png"
-                filename = ((showDigest . sha256 . fromString) (layout ++ "/" ++ content)) ++ "." ++ ext
+                filename = "graphviz-" ++ ((showDigest . sha256 . fromString) (layout ++ "/" ++ content))
+                           ++ "." ++ ext
     where
       layout =
           case lookup "layout" keyvals of
