@@ -3,7 +3,10 @@
 This filter provides Graphviz code block support.
 
 ## Features
-- This filter embeds svg image directly when the output format is html.
+- This filter changes the way to embed image according to the output format.
+    - For html, it embeds svg element directly. In this case, no temporary files are created.
+    - For pdf/LaTeX, it saves image as pdf.
+    - For other formats, it saves image as png.
 - The layout engine can be specified in block attributes.
 - For wrong inputs, it outputs error message. `pandoc` command does not fail.
 
