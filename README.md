@@ -1,4 +1,4 @@
-# Graphviz filter for Pandoc
+# A Pandoc filter for Graphviz
 
 This filter provides Graphviz code block support.
 
@@ -17,12 +17,12 @@ This filter provides Graphviz code block support.
 ## Build
 ```
 $ cd pandoc-graphviz
-$ ghc --make Main.hs -o pandoc-graphviz
+$ ghc --make Main.hs -o pandoc-filter-graphviz
 ```
 
 Note: `-dynamic` option is required in some environments.
 
 ## Usage
 ```
-$ pandoc -F ./pandoc-graphviz example.md -o example.html
+$ pandoc -F ./pandoc-filter-graphviz example.md -o example.html
 ```
