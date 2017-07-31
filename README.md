@@ -13,6 +13,7 @@ This filter provides Graphviz code block support.
 ## Requirements
 - pandoc
 - graphviz
+- dot2tex (pdf/LaTeX support)
 
 ## Setup
 
