@@ -16,7 +16,7 @@ This filter provides Graphviz code block support.
 
 ## Build
 ```
-$ cd pandoc-graphviz
+$ cd pandoc-filter-graphviz
 $ ghc --make Main.hs -o pandoc-filter-graphviz
 ```
 
