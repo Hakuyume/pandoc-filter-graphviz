@@ -1,4 +1,4 @@
-module GititGraphviz (plugin) where
+module GititPluginGraphviz (plugin) where
 
 import Network.Gitit.Interface
 import GraphvizBlock
