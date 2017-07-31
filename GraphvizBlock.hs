@@ -17,19 +17,23 @@ graphvizBlock (Just format) (CodeBlock (id, classes, keyvals) content)
                            ExitSuccess -> RawBlock (Format "html")
                                  ("<div id=\"" ++ id ++ "\" class=\"graphviz\">" ++ out ++ "</div>")
                            _ -> CodeBlock (id, classes, keyvals) err
+          Format "latex" ->
+              do
+                (ec, out, err) <- readProcessWithExitCode
+                                  "dot2tex" ["--figonly", "--progoptions=-K" ++ layout] content
+                return $ if length err == 0
+                         then RawBlock (Format "latex") out
+                         else CodeBlock (id, classes, keyvals) err
           _ ->
               do
                 (ec, out, err) <- readProcessWithExitCode
-                                  "dot" ["-T" ++ ext, "-K" ++ layout, "-o" ++ filename] content
+                                  "dot" ["-Tpng", "-K" ++ layout, "-o" ++ filename] content
                 return $ case ec of
                            ExitSuccess -> Para [Image (id, [], []) [Str content] (filename, id)]
                            _ -> CodeBlock (id, classes, keyvals) err
               where
-                ext = case format of
-                        Format "latex" -> "pdf"
-                        _ -> "png"
-                filename = "graphviz-" ++ ((showDigest . sha256 . fromString) (layout ++ "/" ++ content))
-                           ++ "." ++ ext
+                uniq = ((showDigest . sha256 . fromString) (layout ++ "/" ++ content))
+                filename = "graphviz-" ++ uniq ++ ".png"
     where
       layout =
           case lookup "layout" keyvals of
