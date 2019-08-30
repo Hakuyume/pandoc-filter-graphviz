@@ -15,6 +15,11 @@ This filter provides Graphviz code block support.
 - graphviz
 - dot2tex (pdf/LaTeX support)
 
+On Debian, you can install the required packages as follows:
+    ```
+    $ sudo apt install ghc libghc-utf8-string-dev libghc-sha-dev libghc-pandoc-dev
+    ```
+
 ## Setup
 
 ### Build filter
@@ -32,6 +37,12 @@ You can skip this step if you do not use pdf/LaTeX.
     $ mkdir -p ~/.pandoc/templates
     $ pandoc -D latex > ~/.pandoc/templates/default.latex
     ```
+    
+    Note, when you are using LaTeX beamer as target, replace the second command with:
+    ```
+    $ pandoc -D beamer > ~/.pandoc/templates/default.beamer
+    ```
+    
 
 - Edit `~/.pandoc/templates/default.latex`
     ```latex
