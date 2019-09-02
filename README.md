@@ -16,9 +16,9 @@ This filter provides Graphviz code block support.
 - dot2tex (pdf/LaTeX support)
 
 On Debian, you can install the required packages as follows:
-    ```
-    $ sudo apt install ghc libghc-utf8-string-dev libghc-sha-dev libghc-pandoc-dev
-    ```
+```
+$ sudo apt install ghc libghc-utf8-string-dev libghc-sha-dev libghc-pandoc-dev
+```
 
 ## Setup
 
