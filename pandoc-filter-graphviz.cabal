@@ -1,0 +1,40 @@
+name:                pandoc-filter-graphviz
+version:             0.1.0.0
+synopsis:            This filter provides Graphviz code block support.
+homepage:            https://github.com/Hakuyume/pandoc-filter-graphviz
+license:             BSD3
+license-file:        LICENSE
+author:              Toru Ogawa
+copyright:           BSD3
+category:            Text
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=2.0
+
+executable pandoc-filter-graphviz
+  main-is:             Main.hs
+  other-modules:
+    GraphvizBlock
+
+  build-depends:
+     base         == 4.*
+   , utf8-string  ^>= 1.0.1.1
+   , SHA          ^>= 1.6.4.4
+   , text         ^>= 1.2.4.0
+   , process      ^>= 1.6.8.0
+   , pandoc-types ^>= 1.20
+
+  default-language:    Haskell2010
+
+  ghc-options:         -Wall
+                       -threaded
+                       -rtsopts
+                       -with-rtsopts=-N
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wcompat
+                       -Widentities
+                       -Wredundant-constraints
+                       -fhide-source-paths
+                       -Wmissing-export-lists
+                       -Wpartial-fields
