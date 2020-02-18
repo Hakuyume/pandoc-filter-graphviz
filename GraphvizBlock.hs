@@ -11,32 +11,32 @@ import System.Process (readProcessWithExitCode)
 import Text.Pandoc.Definition
 
 graphvizBlock :: Maybe Format -> Block -> IO Block
-graphvizBlock (Just format) (CodeBlock (id, classes, keyvals) content)
-    | elem "graphviz" classes =
+graphvizBlock (Just format) (CodeBlock (ident, classes, keyvals) content)
+    | "graphviz" `elem` classes =
         case format of
           Format "html" ->
               do
                 (ec, out, err) <- readProcessWithExitCode "dot" ["-Tsvg", "-K" <> layout] $ unpack content
                 return $ case ec of
                            ExitSuccess -> RawBlock (Format "html")
-                                 ("<div id=\"" <> id <> "\" class=\"graphviz\">" <> pack out <> "</div>")
-                           _ -> CodeBlock (id, classes, keyvals) $ pack err
+                                 ("<div id=\"" <> ident <> "\" class=\"graphviz\">" <> pack out <> "</div>")
+                           _ -> CodeBlock (ident, classes, keyvals) $ pack err
           Format "latex" ->
               do
-                (ec, out, err) <- readProcessWithExitCode
+                (_, out, err) <- readProcessWithExitCode
                                   "dot2tex" ["--figonly", "--progoptions=-K" <> layout] $ unpack content
-                return $ if length err == 0
+                return $ if null err
                          then RawBlock (Format "latex") $ pack out
-                         else CodeBlock (id, classes, keyvals) $ pack err
+                         else CodeBlock (ident, classes, keyvals) $ pack err
           _ ->
               do
-                (ec, out, err) <- readProcessWithExitCode
-                                  "dot" ["-Tpng", "-K" <> layout, "-o" <> unpack filename] $ unpack content
+                (ec, _, err) <- readProcessWithExitCode
+                                  "dot" ["-Tpng", "-K" <> layout, "-o" <> filename] $ unpack content
                 return $ case ec of
-                           ExitSuccess -> Para [Image (id, [], []) [Str content] (filename, id)]
-                           _ -> CodeBlock (id, classes, keyvals) $ pack err
+                           ExitSuccess -> Para [Image (ident, [], []) [Str content] (pack filename, ident)]
+                           _ -> CodeBlock (ident, classes, keyvals) $ pack err
               where
-                uniq = ((pack . showDigest . sha256 . encodeUtf8 . fromStrict) (pack layout <> "/" <> content))
+                uniq = (showDigest . sha256 . encodeUtf8 . fromStrict) (pack layout <> "/" <> content)
                 filename = "graphviz-" <> uniq <> ".png"
     where
       layout = unpack $
