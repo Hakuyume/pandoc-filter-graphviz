@@ -15,19 +15,17 @@ This filter provides Graphviz code block support.
 - graphviz
 - dot2tex (pdf/LaTeX support)
 
-On Debian, you can install the required packages as follows:
+## Installation
+Install using [Cabal](https://www.haskell.org/cabal/) 3.0 or later
+
+### Build and install filter
+
 ```
-$ sudo apt install pandoc graphviz dot2tex ghc libghc-utf8-string-dev libghc-sha-dev libghc-pandoc-dev
+$ cd pandoc-filter-graphviz
+$ cabal install pandoc-filter-graphviz
 ```
 
 ## Setup
-
-### Build filter
-```
-$ cd pandoc-filter-graphviz
-$ ghc --make Main.hs -o pandoc-filter-graphviz
-```
-Note: `-dynamic` option is required in some environments.
 
 ### Add TikZ to LaTeX template
 You can skip this step if you do not use pdf/LaTeX.
@@ -55,5 +53,5 @@ You can skip this step if you do not use pdf/LaTeX.
 
 ## Usage
 ```
-$ pandoc -F ./pandoc-filter-graphviz example.md -o example.html
+$ pandoc -F pandoc-filter-graphviz example.md -o example.html
 ```
