@@ -2,3 +2,6 @@
 !.gitignore
 !*.hs
 !*.md
+!*.cabal
+!LICENSE
+!example.md
